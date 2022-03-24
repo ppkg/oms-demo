@@ -7,7 +7,6 @@ import (
 	"oms-demo/repository"
 
 	"github.com/go-spring/spring-base/log"
-	"github.com/go-spring/spring-core/gs"
 	"gorm.io/gorm"
 )
 
@@ -33,6 +32,5 @@ func (s *GreeterService) SayHello(ctx context.Context, in *helloworld.HelloReque
 		return nil, err
 	}
 	resp.Message += "-->" + storeInfo
-	gs.NewApp()
 	return resp, nil
 }
