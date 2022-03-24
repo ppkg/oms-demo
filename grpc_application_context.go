@@ -10,7 +10,7 @@ import (
 	"github.com/go-spring/spring-core/gs"
 	"github.com/limitedlee/microservice/common/config"
 
-	_ "github.com/go-spring/starter/starter-echo"
+	_ "github.com/go-spring/starter-echo"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

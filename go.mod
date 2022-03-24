@@ -3,15 +3,15 @@ module oms-demo
 go 1.18
 
 require (
-	github.com/go-spring/spring-base v1.2.0
-	github.com/go-spring/spring-core v1.2.0
+	github.com/go-spring/spring-base v1.1.0-rc3
+	github.com/go-spring/spring-core v1.1.0-rc3
+	github.com/go-spring/starter-echo v1.1.0-rc3
 	github.com/go-spring/starter-redigo v1.1.0-rc3
-	github.com/go-spring/starter/starter-echo v0.0.0-00010101000000-000000000000
 	github.com/golang/protobuf v1.5.2
 	github.com/limitedlee/microservice v0.1.7
 	google.golang.org/grpc v1.45.0
 	gorm.io/driver/mysql v1.3.2
-	gorm.io/gorm v1.23.3
+	gorm.io/gorm v1.23.1
 )
 
 require (
@@ -36,17 +36,9 @@ require (
 	golang.org/x/net v0.0.0-20210913180222-943fd674d43e // indirect
 	golang.org/x/sys v0.0.0-20210910150752-751e447fb3d0 // indirect
 	golang.org/x/text v0.3.7 // indirect
-	google.golang.org/genproto v0.0.0-20220322021311-435b647f9ef2 // indirect
-	google.golang.org/protobuf v1.27.1 // indirect
+	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
+	google.golang.org/protobuf v1.26.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-replace (
-	// github.com/go-spring/spring-base v1.2.0 => github.com/ppkg/go-spring/spring/spring-base v1.2.0
-	// github.com/go-spring/spring-core v1.2.0 => github.com/ppkg/go-spring/spring/spring-core v1.2.0
-	// github.com/go-spring/starter/starter-echo v1.2.0 => github.com/ppkg/go-spring/starter/starter-echo v1.2.0
-
-	github.com/go-spring/spring-base => /home/zihua/Documents/goPath/src/github.com/go-spring/go-spring/spring/spring-base
-	github.com/go-spring/spring-core => /home/zihua/Documents/goPath/src/github.com/go-spring/go-spring/spring/spring-core
-	github.com/go-spring/starter/starter-echo => /home/zihua/Documents/goPath/src/github.com/go-spring/go-spring/starter/starter-echo
-)
+replace github.com/go-spring/spring-core v1.1.0-rc3 => github.com/ppkg/spring-core v1.2.1
