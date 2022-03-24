@@ -9,13 +9,15 @@ import (
 	"github.com/go-spring/spring-base/log"
 	"github.com/go-spring/spring-core/gs"
 	"github.com/limitedlee/microservice/common/config"
+
 	StarterGrpc "github.com/ppkg/starter-grpc"
+
+	_ "github.com/ppkg/starter-grpc/echo"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
 	_ "github.com/go-spring/starter-redigo"
-	_ "github.com/ppkg/starter-grpc/server"
 )
 
 type grpcApplicationContext struct {
@@ -30,7 +32,7 @@ func NewGrpcApp() StarterGrpc.ApplicationContext {
 // 初始化
 func (s *grpcApplicationContext) Init() error {
 	gs.Property("spring.application.name", "oms-demo")
-	gs.Property("grpc.server.port", 8080)
+	gs.Property("web.server.port", 8080)
 	s.isDebug = true
 	return nil
 }
@@ -117,5 +119,5 @@ func (s *grpcApplicationContext) instanceDatabase(name, url string) error {
 
 // 执行业务
 func (s *grpcApplicationContext) Run() error {
-	return gs.Web(false).Run()
+	return gs.Run()
 }

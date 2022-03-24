@@ -2,5 +2,5 @@ version: v1
 name: buf.build/ppkg/oms-demo
 # directories:
 #   - proto
-deps:
-  - buf.build/googleapis/googleapis
+# deps:
+#   - buf.build/googleapis/googleapis

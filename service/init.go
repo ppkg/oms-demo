@@ -7,7 +7,6 @@ import (
 
 	"github.com/go-spring/spring-core/grpc"
 	"github.com/go-spring/spring-core/gs"
-	"github.com/ppkg/starter-grpc/server/gateway"
 )
 
 func init() {
@@ -17,7 +16,4 @@ func init() {
 			Service:  s,
 		})
 	})
-	gs.Object(&gateway.GatewayServer{
-		Register: helloworld.RegisterGreeterHandlerFromEndpoint,
-	}).Name("gateway.greeter")
 }
