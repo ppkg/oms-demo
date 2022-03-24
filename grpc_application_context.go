@@ -10,9 +10,8 @@ import (
 	"github.com/go-spring/spring-core/gs"
 	"github.com/limitedlee/microservice/common/config"
 
-	StarterGrpc "github.com/ppkg/starter-grpc"
+	_ "github.com/go-spring/starter/starter-echo"
 
-	_ "github.com/ppkg/starter-grpc/echo"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -25,7 +24,7 @@ type grpcApplicationContext struct {
 	isDebug bool
 }
 
-func NewGrpcApp() StarterGrpc.ApplicationContext {
+func NewGrpcApp() *grpcApplicationContext {
 	return &grpcApplicationContext{}
 }
 
