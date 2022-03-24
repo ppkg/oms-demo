@@ -10,16 +10,16 @@ import (
 )
 
 type productRepositoryImpl struct {
-	db *gorm.DB `autowire:"product-center"`
+	
 }
 
 func NewProductRepository() repository.ProductRepository {
 	return &productRepositoryImpl{}
 }
 
-func (s *productRepositoryImpl) List(ctx context.Context) ([]*model.Product, error) {
+func (s *productRepositoryImpl) List(ctx context.Context,db *gorm.DB) ([]*model.Product, error) {
 	var list []*model.Product
-	err := s.db.Order("id desc").Limit(5).Find(&list).Error
+	err := db.Order("id desc").Limit(5).Find(&list).Error
 	if err != nil {
 		log.Errorf("查询产品列表异常:%+v", err)
 		return nil, err
