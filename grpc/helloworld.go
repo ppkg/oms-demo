@@ -27,6 +27,7 @@ func (s *greeterGrpcServer) SayHello(ctx context.Context, in *helloworld.HelloRe
 	}
 	storeInfo, err := s.storeCache.GetByFinanceCode(ctx, "CX0004")
 	if err != nil {
+		log.Errorf("获取门店缓存失败:%+v", err)
 		return nil, err
 	}
 	resp.Message += "-->" + storeInfo

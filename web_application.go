@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	_ "oms-demo/grpc"
 	_ "oms-demo/http"
@@ -8,8 +9,11 @@ import (
 	"time"
 
 	"github.com/go-spring/spring-base/log"
+	"github.com/go-spring/spring-base/util"
 	"github.com/go-spring/spring-core/gs"
 	"github.com/limitedlee/microservice/common/config"
+	"github.com/maybgit/glog"
+	"github.com/spf13/cast"
 
 	_ "github.com/go-spring/starter-echo"
 
@@ -20,25 +24,46 @@ import (
 	_ "github.com/go-spring/starter-redigo"
 )
 
-type grpcApplicationContext struct {
+type webApplication struct {
 	// 是否debug模式
 	isDebug bool
 }
 
-func NewGrpcApp() *grpcApplicationContext {
-	return &grpcApplicationContext{}
+func NewWebApp() *webApplication {
+	return &webApplication{}
 }
 
 // 初始化
-func (s *grpcApplicationContext) Init() error {
+func (s *webApplication) Init() error {
+	s.adaptLog()
+
 	gs.Property("spring.application.name", "oms-demo")
 	gs.Property("web.server.port", 8080)
 	s.isDebug = true
 	return nil
 }
 
+// 适配日志框架
+func (s *webApplication) adaptLog() {
+	log.SetOutput(log.FuncOutput(func(level log.Level, msg *log.Message) {
+		defer func() { msg.Reuse() }()
+		logFn := glog.Infof
+		if level >= log.ErrorLevel {
+			logFn = glog.Errorf
+		} else if level == log.WarnLevel {
+			logFn = glog.Warningf
+		}
+		var buf bytes.Buffer
+		for _, a := range msg.Args() {
+			buf.WriteString(cast.ToString(a))
+		}
+		fileLine := util.Contract(fmt.Sprintf("%s:%d", msg.File(), msg.Line()), 48)
+		logFn("[%s] %s\n", fileLine, buf.String())
+	}))
+}
+
 // 安装组件
-func (s *grpcApplicationContext) Setup() error {
+func (s *webApplication) Setup() error {
 	// 安装数据库
 	err := s.setupDatabase()
 	if err != nil {
@@ -55,7 +80,7 @@ func (s *grpcApplicationContext) Setup() error {
 }
 
 // 安装redis
-func (s *grpcApplicationContext) setupRedis() error {
+func (s *webApplication) setupRedis() error {
 	addr := config.GetString("redis.Addr")
 	urlInfo := strings.Split(addr, ":")
 	if len(urlInfo) != 2 {
@@ -69,7 +94,7 @@ func (s *grpcApplicationContext) setupRedis() error {
 }
 
 // 安装数据库
-func (s *grpcApplicationContext) setupDatabase() error {
+func (s *webApplication) setupDatabase() error {
 	err := s.instanceDatabase("product-center", config.GetString("mysql.dc_product"))
 	if err != nil {
 		return err
@@ -83,7 +108,7 @@ func (s *grpcApplicationContext) setupDatabase() error {
 
 }
 
-func (s *grpcApplicationContext) instanceDatabase(name, url string) error {
+func (s *webApplication) instanceDatabase(name, url string) error {
 	gormConf := &gorm.Config{}
 	if s.isDebug {
 		gormConf.Logger = logger.Default.LogMode(logger.Info)
@@ -118,6 +143,6 @@ func (s *grpcApplicationContext) instanceDatabase(name, url string) error {
 }
 
 // 执行业务
-func (s *grpcApplicationContext) Run() error {
+func (s *webApplication) Run() error {
 	return gs.Run()
 }
