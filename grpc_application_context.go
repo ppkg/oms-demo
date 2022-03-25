@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	_ "oms-demo/service"
+	_ "oms-demo/grpc"
+	_ "oms-demo/http"
 	"strings"
 	"time"
 
