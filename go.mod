@@ -8,7 +8,7 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/limitedlee/microservice v0.1.7
 	github.com/maybgit/glog v0.1.22
-	github.com/ppkg/stark v0.0.0-20220326115416-0dfb5a44af80
+	github.com/ppkg/stark v0.0.0-20220326123648-159c4c438bea
 	google.golang.org/grpc v1.45.0
 	gorm.io/gorm v1.23.3
 )
@@ -45,7 +45,7 @@ require (
 	gorm.io/driver/mysql v1.3.2 // indirect
 )
 
-replace github.com/go-spring/spring-core v1.1.0-rc3 => github.com/ppkg/spring-core v1.2.3
+replace github.com/go-spring/spring-core v1.1.0-rc3 => github.com/ppkg/spring-core v1.2.4
 
 // replace (
 // 	github.com/go-spring/spring-core => /home/zihua/Documents/goPath/src/github.com/go-spring/spring-core
