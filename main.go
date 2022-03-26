@@ -6,6 +6,7 @@ import (
 
 	_ "oms-demo/grpc"
 	_ "oms-demo/http"
+	_ "oms-demo/swagger"
 
 	"github.com/go-spring/spring-base/log"
 	"github.com/limitedlee/microservice/common/config"
