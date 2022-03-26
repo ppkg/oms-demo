@@ -20,7 +20,7 @@ func main() {
 	defer glog.Flush()
 
 	maxSize := 50 * 1024 * 1024
-	application := &stark.GrpcApplication{
+	application := &stark.WebApplication{
 		Application: &stark.Application{
 			Name:        "oms-demo",
 			Environment: "dev",
@@ -79,6 +79,6 @@ func main() {
 	}
 
 	// 启动程序
-	app.RunGrpcApplication(application)
+	app.RunWebApplication(application)
 
 }

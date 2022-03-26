@@ -8,7 +8,7 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/limitedlee/microservice v0.1.7
 	github.com/maybgit/glog v0.1.22
-	github.com/ppkg/stark v0.0.0-20220326123648-159c4c438bea
+	github.com/ppkg/stark v0.0.0-20220326133125-ac872428334b
 	google.golang.org/grpc v1.45.0
 	gorm.io/gorm v1.23.3
 )
