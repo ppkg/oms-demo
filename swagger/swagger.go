@@ -9,6 +9,7 @@ import (
 )
 
 func init() {
+	web.RegisterSwaggerHandler(func(r web.Router, doc string) {})
 	gs.Provide(injectSwagger, "")
 }
 

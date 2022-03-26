@@ -2,19 +2,19 @@ package http
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"oms-demo/model"
 	"oms-demo/service"
 
 	"github.com/go-spring/spring-core/web"
 	SpringSwagger "github.com/go-spring/spring-swag"
+	"github.com/go-spring/spring-swag/swagger"
 )
 
 type helloHttpServer struct {
 	productService service.ProductService `autowire:""`
 	GOPATH         string                 `value:"${GOPATH}"`
-	swagger        *SpringSwagger.Swagger `autowire:""`
+	server         web.Server             `autowire:""`
 }
 
 func (c *helloHttpServer) Hello(ctx web.Context) {
@@ -29,7 +29,6 @@ func (c *helloHttpServer) Hello(ctx web.Context) {
 		Message:     "请求成功",
 		ProductList: list,
 	}
-	fmt.Println(c.swagger.ReadDoc())
 	ctx.JSON(resp)
 }
 
@@ -37,4 +36,19 @@ type helloResponse struct {
 	GoPath      string           `json:"goPath"`
 	Message     string           `json:"message"`
 	ProductList []*model.Product `json:"productList"`
+}
+
+func (c *helloHttpServer) route() {
+	r := c.server.GetMapping("/hello2", c.Hello)
+	swagger.Path(r).
+		WithID("getPetById").
+		WithTags("pet").
+		WithDescription("Returns a single pet").
+		WithSummary("Find pet by ID").
+		WithProduces("application/json", "application/xml").
+		AddParam(SpringSwagger.PathParam("petId", "integer", "int64").WithDescription("ID of pet to return")).
+		RespondsWith(http.StatusOK, SpringSwagger.NewBindResponse(new(helloResponse), "successful operation")).
+		RespondsWith(http.StatusBadRequest, SpringSwagger.NewResponse("Invalid ID supplied")).
+		RespondsWith(http.StatusNotFound, SpringSwagger.NewResponse("Pet not found")).
+		SecuredWith("api_key", []string{}...)
 }
