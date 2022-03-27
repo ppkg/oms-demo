@@ -3,7 +3,7 @@ package http
 import (
 	"context"
 	"net/http"
-	"oms-demo/model"
+	"oms-demo/dto"
 	"oms-demo/service"
 
 	"github.com/go-spring/spring-core/web"
@@ -24,31 +24,29 @@ func (c *helloHttpServer) Hello(ctx web.Context) {
 		ctx.String(err.Error())
 		return
 	}
-	resp := helloResponse{
-		GoPath:      c.GOPATH,
-		Message:     "请求成功",
-		ProductList: list,
+	resp := dto.HelloResponse{
+		GoPath:  c.GOPATH,
+		Message: "请求成功",
+	}
+
+	for _, v := range list {
+		resp.ProductList = append(resp.ProductList, dto.Product{
+			Id:   v.Id,
+			Name: v.Name,
+		})
 	}
 	ctx.JSON(resp)
 }
 
-type helloResponse struct {
-	GoPath      string           `json:"goPath"`
-	Message     string           `json:"message"`
-	ProductList []*model.Product `json:"productList"`
-}
-
+// 注册路由
 func (c *helloHttpServer) route() {
 	r := c.server.GetMapping("/hello2", c.Hello)
 	swagger.Path(r).
-		WithID("getPetById").
-		WithTags("pet").
-		WithDescription("Returns a single pet").
-		WithSummary("Find pet by ID").
-		WithProduces("application/json", "application/xml").
-		AddParam(SpringSwagger.PathParam("petId", "integer", "int64").WithDescription("ID of pet to return")).
-		RespondsWith(http.StatusOK, SpringSwagger.NewBindResponse(new(helloResponse), "successful operation")).
-		RespondsWith(http.StatusBadRequest, SpringSwagger.NewResponse("Invalid ID supplied")).
-		RespondsWith(http.StatusNotFound, SpringSwagger.NewResponse("Pet not found")).
-		SecuredWith("api_key", []string{}...)
+		WithID("查询商品").
+		WithTags("商品管理").
+		WithDescription("返回前面10条商品信息详情").
+		WithProduces("application/json").
+		AddParam(SpringSwagger.PathParam("name", "string", "").WithDescription("你的名称")).
+		RespondsWith(http.StatusOK, SpringSwagger.NewBindResponse(new(dto.HelloResponse), "请求成功")).
+		RespondsWith(http.StatusBadRequest, SpringSwagger.NewResponse("请求失败"))
 }
