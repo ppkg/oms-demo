@@ -16,6 +16,7 @@ require (
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect
+	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
@@ -42,21 +43,24 @@ require (
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
+	github.com/swaggo/files v0.0.0-20210815190702-a29dd2bc99b2 // indirect
+	github.com/swaggo/swag v1.8.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.1 // indirect
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
 	golang.org/x/net v0.0.0-20220325170049-de3da57026de // indirect
 	golang.org/x/sys v0.0.0-20220325203850-36772127a21f // indirect
 	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/tools v0.1.7 // indirect
 	google.golang.org/genproto v0.0.0-20220324131243-acbaeb5b85eb // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gorm.io/driver/mysql v1.3.2 // indirect
 )
 
-replace github.com/go-spring/spring-core v1.1.0-rc3 => github.com/ppkg/spring-core v1.2.4
+// replace github.com/go-spring/spring-core v1.1.0-rc3 => github.com/ppkg/spring-core v1.2.4
 
-// replace (
-// 	github.com/go-spring/spring-core => /home/zihua/Documents/goPath/src/github.com/go-spring/spring-core
-// 	github.com/ppkg/stark => /home/zihua/Documents/goPath/src/github.com/ppkg/stark
-// )
+replace (
+	github.com/go-spring/spring-core => /home/zihua/Documents/goPath/src/github.com/go-spring/spring-core
+	github.com/ppkg/stark => /home/zihua/Documents/goPath/src/github.com/ppkg/stark
+)
