@@ -69,3 +69,17 @@ func init() {
 }
 ```
 
+## proto生成
+
+先安装proto生成工具
+
+```
+https://docs.buf.build/installation
+```
+
+执行生成pb文件
+
+```
+buf generate
+```
+
